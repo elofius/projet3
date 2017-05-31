@@ -32,6 +32,9 @@
                     <li>
                         <a href="#" onclick="charger('chapitre','c=3');">Épisode 3</a>
                     </li>
+                    <li>
+                        <a href="#" onclick="charger('chapitre','c=4');">Épisode 4</a>
+                    </li>
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
