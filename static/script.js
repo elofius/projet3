@@ -11,7 +11,7 @@ $(".menu-toggle").click(function(e) {
 //Chargement Ajax des pages
 function charger(nom,param = ""){
     $("#centre").fadeToggle(function(){
-        $("#centre").load(nom+'.php'+param,function(){
+        $("#centre").load('view/sub/'+nom+'.php'+param,function(){
            $("#centre").fadeToggle(); 
         });
     });
