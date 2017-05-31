@@ -9,6 +9,6 @@
     <label for="password">Mot de passe</label>
     <input type="password" class="form-control" id="password" placeholder="Mot de passe">
   </div>
-  <button class="btn btn-default" onClick="alert('ok'); return false;">Submit</button>
+  <button class="btn btn-default" onClick="charger('co','?login='+getID('identifiant')+'&password='+getID('password')); return false;">Submit</button>
 </form>
 
