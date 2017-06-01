@@ -5,6 +5,10 @@ if (connexion($bdd) == false){
     echo "Erreur de login/pass";
 }else
 {
-    echo "ok!";
+    ?>
+    <script>
+        document.cookie = "admin=ok";
+    </script>
+<?php
 }
 
