@@ -1,6 +1,9 @@
 <?php
 //amorçage de la BDD dans un fichier séparé
-require('model/bdd.php');
+
+if (!require_once('model/bdd.php')){
+    require_once('model/bdd_example.php');
+}
 
 //récupération de l'intro dans la BDD
 function affichageIntro($bdd){
