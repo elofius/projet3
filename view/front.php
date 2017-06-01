@@ -38,7 +38,7 @@
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
-                        <a href="#" onClick="charger('connexion');">Se connecter</a>
+                        <a href="#" onClick="charger('page=connexion');">Se connecter</a>
                     </li>
                     
                     <li>
