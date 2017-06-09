@@ -1,4 +1,9 @@
 <?php
+//vérification et renvoi vers SSL le cas échéant
+if (empty($_SERVER['HTTPS'])) {
+    header('Location: https://www.matthieu-deparis.fr/p3');
+    exit;
+}
 require('model/fonctions.php');
 
 if (!isset($_SESSION['admin'])){

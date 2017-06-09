@@ -1,6 +1,6 @@
 <h1>Deconnection</h1>
 <p>Vous êtes maintenant déconnecté.<br />
-    <a href="/P3">Cliquez ici</a> pour revenir à l'accueil.</p>
+    <a href="/p3">Cliquez ici</a> pour revenir à l'accueil.</p>
 <?php
 session_destroy();
 ?>
