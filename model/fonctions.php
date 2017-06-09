@@ -19,7 +19,7 @@ function menuFront($bdd){
     $menu = "";
     $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
     foreach($dbh->query('SELECT * FROM episode ORDER BY numero') as $row){
-        $menu .= "<li>\r\n<a href=\"#\" onClick=\"charger('chapitre', 'c=$row[0]');\">$row[1] : ".utf8_encode($row[2])."</a>\r\n</li>\r\n";
+        $menu .= "\r\n\t\t\t\t\t<li>\r\n\t\t\t\t\t\t<a href=\"#\" onClick=\"charger('page=chapitre&c=$row[0]');\">$row[1] : ".utf8_encode($row[2])."</a>\r\n\t\t\t\t\t</li>\r\n";
     }
     return $menu;
 }

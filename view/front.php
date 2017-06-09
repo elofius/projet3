@@ -23,8 +23,7 @@
                     </li>
                     <li>&nbsp;</li>
                     <li>Épisodes</li>
-                    <!--Chargement des chapitres -->
-                    <?=$menuFront?>
+                    <!--Chargement des chapitres --><?=$menuFront?>
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
