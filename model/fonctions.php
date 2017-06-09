@@ -1,6 +1,5 @@
 <?php
 //amorçage de la BDD dans un fichier séparé
-
 if (!require_once('model/bdd.php')){
     require_once('model/bdd_example.php');
 }
@@ -13,6 +12,16 @@ function affichageIntro($bdd){
         $dbh = NULL;
         return $contenu;
     }
+}
+
+//construction du menu "front"
+function menuFront($bdd){
+    $menu = "";
+    $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+    foreach($dbh->query('SELECT * FROM episode ORDER BY numero') as $row){
+        $menu .= "<li>\r\n<a href=\"#\" onClick=\"charger('chapitre', 'c=$row[0]');\">$row[1] : ".utf8_encode($row[2])."</a>\r\n</li>\r\n";
+    }
+    return $menu;
 }
 
 //vérification login/pass

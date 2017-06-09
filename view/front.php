@@ -23,19 +23,8 @@
                     </li>
                     <li>&nbsp;</li>
                     <li>Épisodes</li>
-                    <!--Chargement des chapitres ici -->
-                    <li>
-                        <a href="#" onclick="charger('chapitre','c=1');">Épisode 1</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="charger('chapitre','c=2');">Épisode 2</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="charger('chapitre','c=3');">Épisode 3</a>
-                    </li>
-                    <li>
-                        <a href="#" onclick="charger('chapitre','c=4');">Épisode 4</a>
-                    </li>
+                    <!--Chargement des chapitres -->
+                    <?=$menuFront?>
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
