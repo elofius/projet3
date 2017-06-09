@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Un billet simple pour l'alaska</title>
+        <title>Un billet simple pour l'alaska - Admin</title>
         <link rel="icon" type="image/png" href="static/img/favico.png" />
         <meta charset="utf-8">
         
@@ -25,21 +25,21 @@
                     <li>Épisodes</li>
                     <!--Chargement des chapitres ici -->
                     <li>
-                        <a href="#" onclick="charger('chapitre','c=1');">Épisode 1</a>
+                        <a href="#" onclick="charger('chapitre','c=1');">Ajouter un épisode</a>
                     </li>
                     <li>
-                        <a href="#" onclick="charger('chapitre','c=2');">Épisode 2</a>
+                        <a href="#" onclick="charger('chapitre','c=2');">Modifier un épisode</a>
                     </li>
                     <li>
-                        <a href="#" onclick="charger('chapitre','c=3');">Épisode 3</a>
+                        <a href="#" onclick="charger('chapitre','c=3');">Supprimer un épisode</a>
                     </li>
                     <li>
-                        <a href="#" onclick="charger('chapitre','c=4');">Épisode 4</a>
+                        <a href="#" onclick="charger('chapitre','c=4');">Modérer les commentaires</a>
                     </li>
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
-                        <a href="#" onClick="charger('page=connexion');">Se connecter</a>
+                        <a href="#" onClick="charger('page=deco');">Se déconnecter</a>
                     </li>
                     
                     <li>
