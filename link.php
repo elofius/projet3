@@ -1,5 +1,11 @@
 <?php
 session_start();
+//Autoload dans l'espace Global
+require ('model/class/Autoloader.php');
+Autoloader::register();
+
+//appel du fichier de fonctions
+require('model/fonctions.php');
 if (filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING) == NULL){
     echo "<h1>Erreur 404!</h1>";
     echo "La page demandée n'existe pas !";
@@ -12,8 +18,7 @@ if (filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING) == NULL){
             if ($filtre != 0){
                 if ($filtre == 1){
                     $parametres = "?$value";
-                    $filtre = 2;
-                }else{
+                    $filtre = 2;                }else{
                     $parametres .= "&$value";
                 }
             }

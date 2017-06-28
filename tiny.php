@@ -8,7 +8,12 @@
   <textarea id="texte"></textarea>
   <button onClick="afficher(); return false;">Click!</button>
   <div id="resultat"></div>
+  <?php
+  $url = "http://www.google.fr/index.php?page=taRace&chapitre=1";
+  var_dump(parse_url($url));
+  ?>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
   <script>
       function afficher(){
           $("#resultat").html("Résultat :"+tinymce.activeEditor.getContent());

@@ -25,7 +25,7 @@
                     <li>Épisodes</li>
                     <!--Chargement des chapitres ici -->
                     <li>
-                        <a href="#" onclick="charger('chapitre','c=1');">Ajouter un épisode</a>
+                        <a href="#" onclick="charger('page=ecrire');">Ajouter un épisode</a>
                     </li>
                     <li>
                         <a href="#" onclick="charger('chapitre','c=2');">Modifier un épisode</a>
