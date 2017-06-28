@@ -10,6 +10,14 @@ class Episodes {
         print_r($this->_episode);
         echo "</pre>";
     }
-    
+    //fonction de recherche du numéro d'épisode le plus grand
+    static function dernierEpisode($bdd){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $dernierEpisode = 0;
+        foreach($dbh->query('SELECT * FROM episode') as $row){
+          $dernierEpisode = ($row[1] > $dernierEpisode) ? $row[1] : $dernierEpisode;
+        }
+        return $dernierEpisode;
+    }
 }
 

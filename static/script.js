@@ -18,27 +18,38 @@ function charger(param = ""){
     return false;
 }
 
-function createCookie(name,value,days) {
-	if (days) {
-		var date = new Date();
-		date.setTime(date.getTime()+(days*24*60*60*1000));
-		var expires = "; expires="+date.toGMTString();
-	}
-	else var expires = "";
-	document.cookie = name+"="+value+expires+"; path=/";
-}
+//Envoi du formulaire pour les ajout/modifications d'épisodes.
+function envoiFormulaire()
+{
+    $(document).ready(function() {
+        // Lorsque je soumets le formulaire
+        $('#formEpisode').on('submit', function(e) {
+            e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
 
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
-}
+            var $this = $(this); // L'objet jQuery du formulaire
 
-function eraseCookie(name) {
-	createCookie(name,"",-1);
+            // Je récupère les valeurs
+            var titreEpisode = $('#titreEpisode').val();
+            var numeroEpisode = $('#numeroEpisode').val();
+            var texteEpisode = $('#texteEpisode').val();
+
+            // Je vérifie une première fois pour ne pas lancer la requête HTTP
+            // si je sais que mon PHP renverra une erreur
+            if(titreEpisode === '' || numeroEpisode === '' || texteEpisode === '') {
+                alert('Les champs doivent êtres remplis');
+            } else {
+                alert($this.serialize());
+                // Envoi de la requête HTTP en mode asynchrone
+                $.ajax({
+                    url: $this.attr('action'), // Le nom du fichier indiqué dans le formulaire
+                    type: $this.attr('method'), // La méthode indiquée dans le formulaire (get ou post)
+                    data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                    success: function(html) { // Je récupère la réponse du fichier PHP
+                        //alert(html); // J'affiche cette réponse
+                         $('#reponseXHR').html(html); // J'affiche cette réponse
+                    }
+                });
+            }
+        });
+    });
 }
