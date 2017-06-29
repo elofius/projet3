@@ -31,12 +31,10 @@
         </div>
         <div class="row">
             <div class="col-lg-12" id="reponseXHR">
-                
             </div>
         </div>
     </div>
 </div>
-<!--SCRIPT JQUERY/AJAX POUR ENVOI DU FORMULAIRE A DEPLACER DANS LE FICHIER JS APRES TEST-->
 <script>
-    envoiFormulaire();
+    envoiFormulaire(); //Appel d'Ajax pour le traitement du formulaire.
 </script>
