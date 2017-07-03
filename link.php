@@ -1,5 +1,7 @@
 <?php
 session_start();
+//Definition du repertoire de police pour fpdf.
+define('FPDF_FONTPATH','./static/font');
 //Autoload dans l'espace Global
 require ('model/class/Autoloader.php');
 Autoloader::register();

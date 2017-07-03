@@ -21,7 +21,8 @@
                     <form id="formEpisode" action="link.php?page=ajoutEpisode" method="POST">
                         <p><input type="text" name="titreEpisode" id="titreEpisode" placeholder="Titre de l'épisode" style="width:100%"/></p>
 
-                            <p><input type="text" name="numeroEpisode" id="numeroEpisode" placeholder="Veuillez entrer le numéro de l'épisode (dernier épisode : <?=Episodes::dernierEpisode($bdd)?>)" style="width:100%"/></p>
+                        <p><input type="text" name="numeroEpisode" id="numeroEpisode" placeholder="Veuillez entrer le numéro de l'épisode (dernier épisode : <?=Episodes::dernierEpisode($bdd)?>)" style="width:100%"/></p>
+                        <p><label><input type="radio" name="affichage" value="1" checked="checked"/> Publier</label> - <label><input type="radio" name="affichage" value="0"/> Brouillon</label></p>
 
                         <p><textarea id="texteEpisode" name="texteEpisode"></textarea></p>
 

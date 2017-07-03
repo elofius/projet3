@@ -8,9 +8,14 @@ class Episodes {
             $this->_episode = array($row[0], $row[1], $row[2], $row[3], $row[4], $row[5]);
         }
         $dbh = NULL;
-        echo "<pre>";
-        print_r($this->_episode);
-        echo "</pre>";
+        echo "\t\t<div class=\"row\">" .
+        "\t\t\t<div class=\"col-xs-12\">" .
+        "\t\t\t\t<h1>" . $this->_episode[2] . "</h1><small>Posté le : " . $this->_episode[5] . "</small> <a href=\"link.php?page=pdf&id=$id\" target=\"_BLANK\">Version PDF</a><p></p>" .
+        "\t\t\t</div>" .
+        "\t\t\t<div class=\"col-xs-12\">" .
+        "\t\t\t\t" . html_entity_decode($this->_episode[3]) .
+        "\t\t\t</div>" .
+        "\t\t</div>";
     }
     //méthode de recherche du numéro d'épisode le plus grand
     static function dernierEpisode($bdd){
@@ -35,6 +40,29 @@ class Episodes {
         }
         $dbh = NULL;
         return $conflit;
+    }
+    static function verificationAjoutEpisode($bdd, $titre, $numero, $texte)
+    {
+        if (($titre == "") || ($numero == "") || ($texte == "")){
+            echo "<strong class=\"text-danger\">Tous les champs doivent être remplis.</strong>";
+            return FALSE;
+        }elseif (!ctype_digit($numero)){
+            echo "<strong class=\"text-danger\">le champ <em>Numéro d'épisode</em> doit être un nombre entier.</strong>";
+            return FALSE;
+        }elseif (Self::rechercheConflit($bdd, $numero))
+        {
+            echo "<strong class=\"text-danger\">le numéro d'épisode entré est déjà existant</strong>";
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
+    
+    static function ajoutEpisode($bdd, $titre, $numero, $texte,$publier){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $time = date('Y-m-d H:i:s', mktime());
+        $dbh->exec("INSERT INTO episode (numero, titre, texte, affichage, date) VALUES ($numero, \"$titre\", \"".htmlentities($texte)."\", $publier, \"$time\")") or die(print_r($dbh->errorInfo(), true));
+        return TRUE;
     }
 }
 

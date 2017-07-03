@@ -1,14 +1,23 @@
-<?php
-echo "ok boy tu veux voir le chapitre dont l'ID dans la base est $_GET[c]";
-$commentaire = new Commentaires();
-$commentaire->recuperer($bdd, $_GET[c]);
-$episode = new Episodes();
-$episode->afficher($bdd, $_GET[c]);
+<div id="page-content-wrapper">
+    <div class="container-fluid">
 
+        <?php
+        $commentaire = new Commentaires();
+        $commentaire->recuperer($bdd, $_GET[c]);
+        $episode = new Episodes();
+        $episode->afficher($bdd, $_GET[c]);
+        ?>
+        <hr />
+       
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Commentaires</h1>
+                <?php
+                $commentaire->afficher();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
 
-?>
-<hr />
-<h3>Commentaires</h3>
-<?php
-$commentaire->afficher();
 
