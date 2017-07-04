@@ -31,17 +31,50 @@ class Commentaires
     
     public function afficher(){
         foreach ($this->_rang1 as $keyRang1 => $rang1){
-            echo "<p>$rang1[3]</p>";
+            echo "<div class=\"row\">";
+            echo "\t<div class=\"col-xs-12 rang1\">";
+            echo "<div class=\"panel panel-default\">
+                    <div class=\"panel-heading\">
+                        <h3 class=\"panel-title\">$rang1[3] par $rang1[6] - $rang1[5] - <a href=\"\" onClick=\"\" data-toggle=\"tooltip\" title=\"Répondre\"><span class=\"glyphicon glyphicon-share-alt\"></span></a></h3>
+                    </div>
+                    <div class=\"panel-body\">
+                        $rang1[4]
+                    </div>
+                </div>";
             foreach($this->_rang2 as $keyRang2 => $rang2){
                 if ($rang2[0] == $keyRang1){
-                    echo "<p style=\"margin-left: 5em\">$rang2[3] est une réponse de $rang1[3]</p>";
+                    echo "<div class=\"row\">";
+                    echo "\t<div class=\"col-xs-12 rang2\">";
+                    echo "<div class=\"panel panel-default\">
+                            <div class=\"panel-heading\">
+                                <h3 class=\"panel-title\"><span class=\"glyphicon glyphicon-hand-up\"></span> $rang2[3] par $rang2[6] - $rang2[5]</h3>
+                            </div>
+                            <div class=\"panel-body\">
+                                $rang2[4]
+                            </div>
+                        </div>";
                     foreach($this->_rang3 as $keyRang3 => $rang3){
                         if ($rang3[0] == $keyRang2){
-                            echo "<p style=\"margin-left: 10em\">$rang[3] est une réponse de $rang2[3]</p>";
+                            echo "<div class=\"row\">";
+                            echo "\t<div class=\"col-xs-12 rang3\">";
+                            echo "<div class=\"panel panel-default\">
+                                    <div class=\"panel-heading\">
+                                        <h3 class=\"panel-title\"><span class=\"glyphicon glyphicon-hand-up\"></span><span class=\"glyphicon glyphicon-hand-up\"></span> $rang3[3] par $rang3[6] - $rang3[5] -33333</h3>
+                                    </div>
+                                    <div class=\"panel-body\">
+                                        $rang3[4]
+                                    </div>
+                                </div>";
+                            echo "\t</div>";
+                            echo"</div>";
                         }
                     }
+                    echo "\t</div>";
+                    echo"</div>";  
                 }
             }
+            echo "\t</div>";
+            echo"</div>";
         }
     }
 }
