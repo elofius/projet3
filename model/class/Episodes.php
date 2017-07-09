@@ -1,6 +1,7 @@
 <?php
 class Episodes {
     private $_episode;
+    
     //méthode permettant d'afficher un épisode
     public function afficher($bdd, $id){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
@@ -56,12 +57,23 @@ class Episodes {
         }else{
             return TRUE;
         }
+   
+    }
+    
+     static function titreEpisode($bdd,$numero){
+         $titre = "";
+         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+         foreach($dbh->query('SELECT * FROM episode WHERE id='.$numero) as $row){
+         $titre = $row[2];
+        }
+        return $titre;
     }
     
     static function ajoutEpisode($bdd, $titre, $numero, $texte,$publier){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
         $time = date('Y-m-d H:i:s', mktime());
         $dbh->exec("INSERT INTO episode (numero, titre, texte, affichage, date) VALUES ($numero, \"$titre\", \"".htmlentities($texte)."\", $publier, \"$time\")") or die(print_r($dbh->errorInfo(), true));
+        $dbh = NULL;
         return TRUE;
     }
 }

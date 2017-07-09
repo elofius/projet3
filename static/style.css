@@ -165,3 +165,12 @@
 .rang3{
     margin-left:10%;
 }
+
+.buttonCommentaire{
+    background-color: #222222;
+    border-color: #222222;
+}
+.buttonCommentaire:hover{
+    background-color: #4e4e4e;
+    border-color: #222222;
+}
