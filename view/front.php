@@ -27,7 +27,7 @@
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
-                        <a href="#" onClick="charger('page=connexion');">Se connecter</a>
+                        <?=Front::lienConnexion()?>
                     </li>
                     
                     <li>

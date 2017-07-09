@@ -23,5 +23,15 @@ class Front
         }
     }
     
+    //affichage du menu connexion/visite page front/back
+    static function lienConnexion(){
+        if(ISSET($_SESSION['admin'])){
+            return "<a href=\"#\" onClick=\"charger('page=visiteur');\">Panneau d'administration</a>";
+        }else
+        {
+            return "<a href=\"#\" onClick=\"charger('page=connexion');\">Se connecter</a>";
+        }
+    }
+    
 }
 

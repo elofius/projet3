@@ -39,6 +39,9 @@
                     <li>&nbsp;</li>
                     <li>Site</li>
                     <li>
+                        <a href="#" onClick="charger('page=visiteur');">Version visiteur</a>
+                    </li>
+                    <li>
                         <a href="#" onClick="charger('page=deco');">Se déconnecter</a>
                     </li>
                     

@@ -11,7 +11,7 @@ Autoloader::register();
 //appel du fichier de fonctions
 require('model/fonctions.php');
 
-if (!isset($_SESSION['admin'])){
+if ((!isset($_SESSION['admin'])) || $_SESSION['admin'] == "front"){
     if (filter_input(INPUT_GET,'chapitre',FILTER_SANITIZE_STRING)== NULL)
     {
     $contenu = Front::intro($bdd); // Affichage de l'intro
