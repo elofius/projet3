@@ -2,6 +2,12 @@
 class Episodes {
     private $_episode;
     
+    public function __construct($bdd, $afficher = FALSE, $id){
+        if ($afficher == TRUE){
+            $this->afficher($bdd, $id);
+        }
+    }
+    
     //méthode permettant d'afficher un épisode
     public function afficher($bdd, $id){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);

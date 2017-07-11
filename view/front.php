@@ -41,7 +41,7 @@
             <div id="page-content-wrapper">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-xs-12">
                             <div id="centre">
                                 <!-- contenu du site ici -->
                                 <?=$contenu?>

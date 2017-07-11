@@ -1,10 +1,9 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
         <?php
-        $commentaire = new Commentaires();
-        $commentaire->recuperer($bdd, $_GET[c]);
-        $episode = new Episodes();
-        $episode->afficher($bdd, $_GET[c]);
+        //appel des classes commentaires et episode
+        $commentaire = new Commentaires($bdd, $_GET['c']);
+        $episode = new Episodes($bdd, TRUE, $_GET['c']);
         ?>
         <hr />
        
@@ -19,6 +18,7 @@
             </div>
         </div>
         <?php
+        //affichage des commentaires
         $commentaire->afficher();
         ?>
             

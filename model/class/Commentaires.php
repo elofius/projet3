@@ -4,9 +4,11 @@ class Commentaires
     private $_rang1 = [];
     private $_rang2 = [];
     private $_rang3 = [];
-    private $_nombre = 0;        
-    public function construct(){
-        
+    private $_nombre = 0;    
+    private $_nombreModeres = 0;
+    
+    public function __construct($bdd, $episode= ""){
+        $this->recuperer($bdd, $episode);
     }
     
     //récupère les commentaires
@@ -125,6 +127,28 @@ class Commentaires
         echo "commentaire signalé";
     }
     
-    
+    static function commentairesSignales($bdd){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $qEpisode = ($episode == "") ? '' : ' WHERE episode='.$episode;
+        $query = 'SELECT * FROM commentaires' . $qEpisode . ' ORDER BY id DESC';
+        $this->_nombre = 0;
+        foreach($dbh->query($query) as $row){
+            switch ($row[2]){
+                case 1 :
+                    $this->_rang1[$row[0]]= array($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+                    $this->_nombre++;
+                    break;
+                case 2 :
+                    $this->_rang2[$row[0]]= array($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+                    $this->_nombre++;
+                    break;
+                case 3 :
+                    $this->_rang3[$row[0]]= array($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+                    $this->_nombre++;
+                    break;
+            }
+        }
+        $dbh = NULL;
+    }
 }
 
