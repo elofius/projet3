@@ -9,10 +9,10 @@ $(".menu-toggle").click(function(e) {
     });
 });
 //Chargement Ajax des pages
-function charger(param = ""){
-    $("#centre").fadeToggle(function(){
-        $("#centre").load('link.php?'+param,function(){
-           $("#centre").fadeToggle(); 
+function charger(param = "", id = "#centre"){
+    $(id).fadeToggle(function(){
+        $(id).load('link.php?'+param,function(){
+           $(id).fadeToggle(); 
         });
     });
     return false;
