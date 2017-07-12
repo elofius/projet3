@@ -24,6 +24,7 @@
     height: 100%;
     margin-left: -230px;
     overflow-y: auto;
+    overflow-x: hidden;
     background: #222222;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -32,6 +33,23 @@
     
 }
 
+/*#sidebar-wrapper::-webkit-scrollbar-track
+{
+	
+    background-color: #222222;
+}
+#sidebar-wrapper::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+#sidebar-wrapper::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    
+    background-color: #4e4e4e;
+}
+*/
 #wrapper.toggled #sidebar-wrapper {
     width: 230px;
 }

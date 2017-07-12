@@ -10,7 +10,7 @@
    
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="static/style.css">
-       
+        <link rel="stylesheet" href="static/perfect-scrollbar.css">
     </head>
     <body>
         <button type="button" class="boutonMenu menu-toggle active">Sommaire</button>
@@ -58,7 +58,8 @@
         <!--Inclusion des Js-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!--<script src="static/bootstrap-filestyle.min.js"></script>-->
+        <script src="static/perfect-scrollbar.jquery.js"></script>
         <script src="static/script.js"></script>
+   
     </body>
 </html>

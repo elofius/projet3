@@ -47,3 +47,7 @@ function commentaireModal(param=""){
           $('#myModal').modal('toggle');  
         })
 }
+
+$(document).ready(function() {
+    $('#sidebar-wrapper').perfectScrollbar();
+});
