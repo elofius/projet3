@@ -17,11 +17,13 @@
                 <p><button class="btn btn-primary btn-sm buttonCommentaire" onClick="<?=$commentaire->lienJSCommentaire($_GET['c'])?>">Nouveau commentaire</button></p>
             </div>
         </div>
+        <!-- Divpermettant de recharger les commentaire après un ajout -->
+        <div id="loadCommentaires">
         <?php
         //affichage des commentaires
         $commentaire->afficher();
         ?>
-            
+        </div>    
     </div>
 </div>
 

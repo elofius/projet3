@@ -48,6 +48,7 @@ function commentaireModal(param=""){
         })
 }
 
+//chargement de perfect scrollbar 
 $(document).ready(function() {
     $('#sidebar-wrapper').perfectScrollbar();
 });

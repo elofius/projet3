@@ -4,13 +4,29 @@ class Commentaires
     private $_rang1 = [];
     private $_rang2 = [];
     private $_rang3 = [];
+    private $_moderation = [];
     private $_nombre = 0;    
     private $_nombreModeres = 0;
     
-    public function __construct($bdd, $episode= ""){
-        $this->recuperer($bdd, $episode);
+    public function __construct($bdd, $episode= "",$moderation = 0){
+        if ($moderation == 0){
+           $this->recuperer($bdd, $episode); 
+        }else
+        {
+            $this->aModerer($bdd); 
+        }
+        
     }
-    
+    //récupère les commentaires à modérer puis les affiche
+    public function aModerer($bdd){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $query = "SELECT * FROM commentaires WHERE signale = 1 ORDER BY id DESC";
+        foreach($dbh->query($query) as $row){
+            $this->_moderation[$row[0]]= array($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+            echo "<div><p>Commentaire N°$row[0]</p></div>";
+        }
+        
+    }
     //récupère les commentaires
     public function recuperer($bdd, $episode = ""){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
@@ -39,7 +55,9 @@ class Commentaires
     //affichage des commentaires en dessous d'un épisode.
     public function afficher(){
         foreach ($this->_rang1 as $keyRang1 => $rang1){
-            $signalement = ($rang1[7] == 0) ? "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang1', '#signalement$keyRang1');\" id=\"signalement$keyRang1\">Signaler</button>" : "<button class=\"btn btn-warning btn-xs\" disabled=\"disabled\">Commentaire signalé</button>";
+            //ligne à dégriser si l'on souhaite bloquer le signalement d'un commentaire après l'avoir signalé
+            //$signalement = ($rang1[7] == 0) ? "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang1', '#signalement$keyRang1');\" id=\"signalement$keyRang1\">Signaler</button>" : "<button class=\"btn btn-warning btn-xs\" disabled=\"disabled\">Commentaire signalé</button>";
+            $signalement = "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang1', '#signalement$keyRang1');\" id=\"signalement$keyRang1\">Signaler</button>";
             echo "<div class=\"row\">";
             echo "\t<div class=\"col-xs-12 rang1\">";
             echo "<div class=\"panel panel-default\">
@@ -52,7 +70,9 @@ class Commentaires
                 </div>";
             foreach($this->_rang2 as $keyRang2 => $rang2){
                 if ($rang2[0] == $keyRang1){
-                    $signalement2 = ($rang2[7] == 0) ? "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang2', '#signalement$keyRang2');\" id=\"signalement$keyRang2\">Signaler</button>" : "<button class=\"btn btn-warning btn-xs\" disabled=\"disabled\">Commentaire signalé</button>";
+                    //ligne à dégriser si l'on souhaite bloquer le signalement d'un commentaire après l'avoir signalé
+                    //$signalement2 = ($rang2[7] == 0) ? "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang2', '#signalement$keyRang2');\" id=\"signalement$keyRang2\">Signaler</button>" : "<button class=\"btn btn-warning btn-xs\" disabled=\"disabled\">Commentaire signalé</button>";
+                    $signalement2 = "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang2', '#signalement$keyRang2');\" id=\"signalement$keyRang2\">Signaler</button>";
                     echo "<div class=\"row\">";
                     echo "\t<div class=\"col-xs-12 rang2\">";
                     echo "<div class=\"panel panel-default\">
@@ -65,7 +85,9 @@ class Commentaires
                         </div>";
                     foreach($this->_rang3 as $keyRang3 => $rang3){
                         if ($rang3[0] == $keyRang2){
-                            $signalement3 = ($rang3[7] == 0) ? "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang3', '#signalement$keyRang3');\" id=\"signalement$keyRang3\">Signaler</button>" : "<button class=\"btn btn-warning btn-xs\" disabled=\"disabled\">Commentaire signalé</button>";
+                            //ligne à dégriser si l'on souhaite bloquer le signalement d'un commentaire après l'avoir signalé
+                            //$signalement3 = ($rang3[7] == 0) ? "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang3', '#signalement$keyRang3');\" id=\"signalement$keyRang3\">Signaler</button>" : "<button class=\"btn btn-warning btn-xs\" disabled=\"disabled\">Commentaire signalé</button>";
+                            $signalement3 = "<button class=\"btn btn-warning btn-xs\" onClick=\"charger('page=signalement&id=$keyRang3', '#signalement$keyRang3');\" id=\"signalement$keyRang3\">Signaler</button>";
                             echo "<div class=\"row\">";
                             echo "\t<div class=\"col-xs-12 rang3\">";
                             echo "<div class=\"panel panel-default\">
@@ -119,10 +141,10 @@ class Commentaires
         return TRUE;
     }
    
-    //signale un commentaire
+    //signale  un commentaire
     static function signalement($bdd, $id){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
-        $dbh->exec("UPDATE commentaires SET signale=1 WHERE id=$id") or die(print_r($dbh->errorInfo(), true));
+        $dbh->exec("UPDATE commentaires SET signale=1 WHERE id=$id");
         $dbh = NULL;
         echo "commentaire signalé";
     }
