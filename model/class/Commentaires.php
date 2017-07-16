@@ -126,6 +126,8 @@ class Commentaires
         if (($commentaire == "") || ($pseudo == "") || ($titre == "")){
             echo "<strong class=\"text-danger\">Tous les champs doivent être remplis.</strong>";
             return FALSE;
+        }elseif ((strtolower ($pseudo) == "admin") || (strtolower ($pseudo) == "adminitrateur")){
+            echo "<strong class=\"text-danger\">Désolé ce pseudo est reservé</strong>";
         }else
         {
             return TRUE;
