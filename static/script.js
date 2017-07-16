@@ -17,7 +17,17 @@ function charger(param = "", id = "#centre"){
     });
     return false;
 }
-
+function chargerModifEpisode(param="", id="#centre"){
+    if ($(id).is(":hidden")){
+    $(id).load('link.php?'+param,function(){
+           $(id).fadeToggle(); 
+        });   
+    }else
+    {
+       charger(param, id);
+    }
+    
+}
 //Envoi du formulaire pour les ajout/modifications d'épisodes.
 function envoiFormulaire(formulaire = '#formEpisode', XHR = '#reponseXHR')
 {
