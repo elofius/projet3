@@ -52,8 +52,8 @@ function envoiFormulaire(formulaire = '#formEpisode', XHR = '#reponseXHR')
 }
 
 //affichage du modal d'ajout de comentaire
-function commentaireModal(param=""){
-    $("#commentaireAjout").load('link.php?page=commentaire'+param,function(){
+function commentaireModal(param="",page="commentaire"){
+    $("#commentaireAjout").load('link.php?page='+page+param,function(){
           $('#myModal').modal('toggle');  
         })
 }

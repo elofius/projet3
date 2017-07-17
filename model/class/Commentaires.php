@@ -7,15 +7,34 @@ class Commentaires
     private $_moderation = [];
     private $_nombre = 0;    
     private $_nombreModeres = 0;
+    private $_commentaire = "";
+    private $_arbre = [];
     
-    public function __construct($bdd, $episode= "",$moderation = 0){
+    public function __construct($bdd, $episode= "",$moderation = 0,$id=""){
         if ($moderation == 0){
-           $this->recuperer($bdd, $episode); 
+            if ($id != ""){
+               $this->commentaire($bdd, $id); 
+            }else{
+               $this->recuperer($bdd, $episode); 
+            }
+            
         }else
         {
             $this->aModerer($bdd); 
         }
         
+    }
+    //stock un commentaire précis
+    public function commentaire($bdd, $id){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $query = "SELECT * FROM commentaires WHERE id = $id";
+        foreach($dbh->query($query) as $row){
+            $this->_commentaire = array($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+        }
+    }
+    //Getter pour le commentaire récupéré dans la méthode ci-dessus
+    public function getCommentaire(){
+        return $this->_commentaire;
     }
     //récupère les commentaires à modérer puis les affiche
     public function aModerer($bdd){
@@ -23,7 +42,14 @@ class Commentaires
         $query = "SELECT * FROM commentaires WHERE signale = 1 ORDER BY id DESC";
         foreach($dbh->query($query) as $row){
             $this->_moderation[$row[0]]= array($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
-            echo "<div><p>Commentaire N°$row[0]</p></div>";
+            echo "<div class=\"panel panel-default\">
+                    <div class=\"panel-heading\">
+                        <h3 class=\"panel-title\">$row[4] par $row[7] - $row[6] - <button class=\"btn btn-info btn-xs buttonCommentaire\" onClick=\"commentaireModal('&id=$row[0]','moderationCommentaireModal');\">Modifier</button> <button class=\"btn btn-danger btn-xs\" onClick=\"charger('page=supprimerCommentaire&id=$row[0]','#boutonSupprimer_$row[0]');\" id=\"boutonSupprimer_$row[0]\">Supprimer</button></h3>
+                    </div>
+                    <div class=\"panel-body\">
+                        $row[5]
+                    </div>
+                </div>";
         }
         
     }
@@ -135,10 +161,16 @@ class Commentaires
     }
     
     //ajoute un commentaire à la BDD
-    static function ajoutCommentaire($bdd, $pseudo, $titre, $commentaire, $rang, $parent, $episode){
+    static function ajoutCommentaire($bdd, $pseudo, $titre, $commentaire, $rang, $parent, $episode, $id=0, $date=0){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
-        $time = date('Y-m-d H:i:s', mktime());
-        $dbh->exec("INSERT INTO commentaires (parent, rang, episode, titre, texte, date, pseudo) VALUES ($parent, $rang, $episode, \"".strip_tags(addslashes($titre))."\",\"".strip_tags(addslashes($commentaire))."\", \"$time\", \"".strip_tags(addslashes($pseudo))."\")") or die(print_r($dbh->errorInfo(), true));
+        //si id=0 alors nouveau commentaire, sinon on l'update
+        if($id==0){
+            
+            $time = date('Y-m-d H:i:s', mktime());
+            $dbh->exec("INSERT INTO commentaires (parent, rang, episode, titre, texte, date, pseudo) VALUES ($parent, $rang, $episode, \"".strip_tags(addslashes($titre))."\",\"".strip_tags(addslashes($commentaire))."\", \"$time\", \"".strip_tags(addslashes($pseudo))."\")") or die(print_r($dbh->errorInfo(), true));
+        }else{
+            $dbh->exec("UPDATE commentaires SET parent=$parent, rang=$rang, episode=$episode, titre=\"".strip_tags(addslashes($titre))."\", texte=\"".strip_tags(addslashes($commentaire))."\", pseudo=\"".strip_tags(addslashes($pseudo))."\", signale=0, date=\"$date\" WHERE id=$id") or die(print_r($dbh->errorInfo(), true));
+        }
         $dbh = NULL;
         return TRUE;
     }
@@ -173,6 +205,33 @@ class Commentaires
             }
         }
         $dbh = NULL;
+    }
+    
+    static function supprimerCommentaire($bdd,$id){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $arbre = self::arbreCommentaire($bdd, $id);
+        foreach ($arbre as $key => $value){
+            $dbh->exec("DELETE FROM commentaires WHERE id=$value") or die(print_r($dbh->errorInfo(), true));
+        }
+       // $dbh->exec("DELETE FROM commentaires WHERE id=$id") or die(print_r($dbh->errorInfo(), true));
+        $dbh = NULL;
+        echo "Commentaire(s) supprimé(s)";
+    }
+    
+    static function arbreCommentaire($bdd, $id){
+        $_arbre[] = $id;
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $dbh2 = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $query = "SELECT * FROM commentaires WHERE parent = $id";
+         
+        foreach($dbh->query($query) as $row){
+            $_arbre[] = $row[0];
+            $query2 = "SELECT * FROM commentaires WHERE parent = $row[0]";
+            foreach($dbh2->query($query2) as $row2){
+                $_arbre[] = $row2[0];
+            }
+        }
+    return $_arbre;    
     }
 }
 
