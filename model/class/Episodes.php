@@ -55,7 +55,7 @@ class Episodes {
         $dbh = NULL;
         return $conflit;
     }
-    static function verificationAjoutEpisode($bdd, $titre, $numero, $texte)
+    static function verificationAjoutEpisode($bdd, $titre, $numero, $texte,$id = 0)
     {
         if (($titre == "") || ($numero == "") || ($texte == "")){
             echo "<strong class=\"text-danger\">Tous les champs doivent être remplis.</strong>";
@@ -65,8 +65,13 @@ class Episodes {
             return FALSE;
         }elseif (Self::rechercheConflit($bdd, $numero))
         {
-            echo "<strong class=\"text-danger\">le numéro d'épisode entré est déjà existant</strong>";
-            return FALSE;
+            if ($id==0){//on ne met sur false que si c'est un nouvel enregistrement 
+                echo "<strong class=\"text-danger\">le numéro d'épisode entré est déjà existant</strong>";
+                return FALSE;
+                
+            }else{
+                return TRUE;
+            } 
         }else{
             return TRUE;
         }
@@ -83,28 +88,44 @@ class Episodes {
     }
     
     //méthode ajoutant un nouvel épisode dans la BDD
-    static function ajoutEpisode($bdd, $titre, $numero, $texte,$publier){
+    static function requeteEpisode($bdd, $titre, $numero, $texte,$publier,$id = 0,$modifier = 0){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
-        $time = date('Y-m-d H:i:s', mktime());
-        $dbh->exec("INSERT INTO episode (numero, titre, texte, affichage, date) VALUES ($numero, \"$titre\", \"".htmlentities($texte)."\", $publier, \"$time\")") or die(print_r($dbh->errorInfo(), true));
+        if ($modifier == 0){
+            $time = date('Y-m-d H:i:s', mktime());
+            $dbh->exec("INSERT INTO episode (numero, titre, texte, affichage, date) VALUES ($numero, \"$titre\", \"".htmlentities($texte)."\", $publier, \"$time\")") or die(print_r($dbh->errorInfo(), true));
+        }else{
+            $dbh->exec("UPDATE episode SET titre=\"$titre\", texte=\"".htmlentities($texte)."\", affichage=$publier, numero=$numero WHERE id=$id") or die(print_r($dbh->errorInfo(), true));
+        }
         $dbh = NULL;
         return TRUE;
     }
     
     //méthode permettant de lister dans un select les différents épisodes
-    static function listerEpisode($bdd){
+    static function listerEpisode($bdd,$suppression = 0){
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
         $liste =  "<p><select id=\"listeEpisode\" name=\"listeEpisode\"  class=\"form-control\" style=\"width:50%;\">";
         foreach($dbh->query('SELECT * FROM episode ORDER BY numero') as $row){
             $liste .= "<option value=\"$row[0]\">$row[1] : $row[2]</option>";
         }
-        $liste .= "</select></p>"
-                . "<p><button class=\"btn btn-primary\" onClick=\"chargerModifEpisode('page=modifierEpisodeForm&id='+$('#listeEpisode').val(),'#formEpisode');\">Modifier cet épisode</button></p>";
+        $liste .= "</select></p>";
+        if ($suppression == 0){
+            $liste .= "<p><button class=\"btn btn-primary\" onClick=\"chargerModifEpisode('page=modifierEpisodeForm&id='+$('#listeEpisode').val(),'#formEpisode');\">Modifier cet épisode</button></p>";
+        }else{
+            $liste .= "<p><span class=\"text-danger\">Attention, la suppression d'un épisode est définitive.</span> <button class=\"btn btn-danger\" onClick=\"charger('page=supprimerEpisode&id='+$('#listeEpisode').val()+'&supprimer=1','#reponseXHR');\">Supprimer cet épisode</button></p>";
+        }
+        $dbh = NULL;     
         return $liste;
     }
     
     public function getEpisode($colonne){
         echo $this->_episode[$colonne];
+    }
+    
+    static function supprimerEpisode($bdd, $id){
+        $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
+        $dbh->exec("DELETE FROM episode WHERE id=$id") or die(print_r($dbh->errorInfo(), true));
+        $dbh = NULL;
+        echo "<span class=\"text-success\">L'épisode a été supprimé.</span>";
     }
 }
 

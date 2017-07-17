@@ -14,13 +14,14 @@
 <?php
 $episode = new Episodes($bdd, FALSE,$_GET['id']);
 ?>
+<input type="hidden" name="id" value="<?=$episode->getEpisode(0);?>" />
 <p><input type="text" name="titreEpisode" id="titreEpisode" placeholder="Titre de l'épisode" style="width:100%" value="<?=$episode->getEpisode(2);?>"/></p>
 
-        <p><input type="text" name="numeroEpisode" id="numeroEpisode" value="<?=$episode->getEpisode(1);?>" placeholder="Veuillez entrer le numéro de l'épisode (dernier épisode : <?=Episodes::dernierEpisode($bdd)?>)" style="width:100%"/></p>
-        <p><label><input type="radio" name="affichage" value="1" checked="checked"/> Publier</label> - <label><input type="radio" name="affichage" value="0"/> Brouillon</label></p>
+<p><input type="text" name="numeroEpisode" id="numeroEpisode" value="<?=$episode->getEpisode(1);?>" placeholder="Veuillez entrer le numéro de l'épisode (dernier épisode : <?=Episodes::dernierEpisode($bdd)?>)" style="width:100%"/></p>
+<p><label><input type="radio" name="affichage" value="1" checked="checked"/> Publier</label> - <label><input type="radio" name="affichage" value="0"/> Brouillon</label></p>
 
-        <p><textarea id="texteEpisode" name="texteEpisode"><?=$episode->getEpisode(3);?></textarea></p>
+<p><textarea id="texteEpisode" name="texteEpisode"><?=$episode->getEpisode(3);?></textarea></p>
 
-        <p><input type="submit" class="btn btn-primary" value="Sauvegarder"></p>
+<p><input type="submit" class="btn btn-primary" value="Sauvegarder"></p>
         
 

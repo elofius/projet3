@@ -32,7 +32,7 @@
                         <a href="#" onclick="charger('page=modifierEpisode');">Modifier un épisode</a>
                     </li>
                     <li>
-                        <a href="#" onclick="charger('chapitre','c=3');">Supprimer un épisode</a>
+                        <a href="#" onclick="charger('page=supprimerEpisode');">Supprimer un épisode</a>
                     </li>
                     <li>
                         <a href="#" onclick="charger('page=moderationCommentaire');">Modérer les commentaires</a>

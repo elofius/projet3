@@ -6,7 +6,7 @@ class Front
     static function menu($bdd){
         $menu = "";
         $dbh = new PDO($bdd[0],$bdd[1],$bdd[2]);
-        foreach($dbh->query('SELECT * FROM episode ORDER BY numero') as $row){
+        foreach($dbh->query('SELECT * FROM episode WHERE affichage=1 ORDER BY numero') as $row){
             $menu .= "\r\n\t\t\t\t\t<li>\r\n\t\t\t\t\t\t<a href=\"#\" onClick=\"charger('page=chapitre&c=$row[0]');\">$row[1] : ".($row[2])."</a>\r\n\t\t\t\t\t</li>\r\n";
         }
         $dbh = NULL;
